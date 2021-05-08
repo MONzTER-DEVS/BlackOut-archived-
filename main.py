@@ -1,5 +1,6 @@
 from imports import *
 from Objects import Player, Triangle
+from MapUtility import load_map_by_img
 
 pygame.init()
 
@@ -13,7 +14,9 @@ clock = pygame.time.Clock()
 fps = 60
 
 pygame.display.set_caption("NONAME_PLATFORMER")
-from MapUtility import load_map_by_img
+
+p = os.path.join("images", "background_elements")
+buildings = [pygame.image.load(os.path.join(p, f)).convert_alpha() for f in os.listdir(p) if os.path.isfile(os.path.join(p, f))]
 
 ## SCENES
 def main():
@@ -54,6 +57,8 @@ def main():
 
         ## DRAWING
         display.blit(back, (0, 0))
+        for b in buildings:
+            display.blit(b, (10, 100))
         tri.draw(display, scroll)
         player.draw(display, scroll)
         for tile in level:
